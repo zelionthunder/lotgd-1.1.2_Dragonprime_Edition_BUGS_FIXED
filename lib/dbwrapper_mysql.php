@@ -81,10 +81,16 @@ function db_error($link=false){
 function db_fetch_assoc(&$result){
 	if (is_array($result)){
 		//cached data
-		if (list($key,$val)=each($result))
+		// PHP 8 compatibility: replace each() with manual pointer management
+		// Get current key and advance pointer
+		$key = key($result);
+		if ($key !== null) {
+			$val = $result[$key];
+			next($result);
 			return $val;
-		else
+		} else {
 			return false;
+		}
 	}else{
 		$fname = DBTYPE."_fetch_assoc";
 		$r = $fname($result);
