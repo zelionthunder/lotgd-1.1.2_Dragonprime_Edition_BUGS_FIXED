@@ -28,7 +28,8 @@ if ($op=="save"){
 	$defsup = httppost("defaultsuperuser");
 	if ($defsup != "") {
 		$value = 0;
-		while(list($k, $v)=each($defsup)) {
+		// PHP 8 compatibility: replace each() + list() with foreach()
+		foreach($defsup as $k => $v) {
 			if ($v) $value += (int)$k;
 		}
 		httppostset('defaultsuperuser', $value);
@@ -65,7 +66,8 @@ if ($op=="save"){
 	$post = httpallpost();
 	reset($post);
 	$old=$settings;
-	while (list($key,$val)=each($post)){
+	// PHP 8 compatibility: replace each() + list() with foreach()
+	foreach($post as $key => $val) {
 		if (!isset($settings[$key]) ||
 				(stripslashes($val) != $settings[$key])) {
 			if (!isset($old[$key]))
@@ -98,7 +100,8 @@ if ($op=="save"){
 						$post['validation_error']);
 			} else {
 				reset($post);
-				while (list($key,$val)=each($post)){
+				// PHP 8 compatibility: replace each() + list() with foreach()
+				foreach($post as $key => $val) {
 					$key = stripslashes($key);
 					$val = stripslashes($val);
 					set_module_setting($key,$val);
@@ -130,7 +133,8 @@ if ($op=="save"){
 			if (count($info['settings'])>0){
 				load_module_settings($mostrecentmodule);
 				$msettings=array();
-				while (list($key,$val)=each($info['settings'])){
+				// PHP 8 compatibility: replace each() + list() with foreach()
+				foreach($info['settings'] as $key => $val) {
 					if (is_array($val)) {
 						$v = $val[0];
 						$x = explode("|", $v);
@@ -214,7 +218,7 @@ if ($op == "") {
 		"emailpetitions"=>"Should submitted petitions be emailed to Admin Email address?,bool",
 		"Enter languages here like this: `i(shortname 2 chars) comma (readable name of the language)`i and continue as long as you wish,note",
 		"serverlanguages"=>"Languages available on this server",
-		"defaultlanguage"=>"Default Language,enum,".getsetting("serverlanguages","en,English,fr,Français,dk,Danish,de,Deutsch,es,Español,it,Italian"),
+		"defaultlanguage"=>"Default Language,enum,".getsetting("serverlanguages","en,English,fr,FranÃ§ais,dk,Danish,de,Deutsch,es,EspaÃ±ol,it,Italian"),
 		"edittitles"=>"Should DK titles be editable in user editor,bool",
 		"motditems"=>"How many items should be shown on the motdlist,int",
 
@@ -308,7 +312,7 @@ if ($op == "") {
 		"newdaycron"=>"Let the newday-runonce run via a cronjob,bool",
 		"The directory is necessary! Do not forget to set the correct one in cron.php in your main game folder!!! ONLY experienced admins should use cron jobbing here,note",
 		"`bAlso make sure you setup a cronjob on your machine using confixx/plesk/cpanel or any other admin panel pointing to the cron.php file in your main folder`b,note",
-		"If you do not know what a Cronjob is... leave it turned off. If you want to know more... check out: <a href='http://wiki.dragonprime.net/index.php?title=Cronjob'>http://wiki.dragonprime.net/index.php?title=Cronjob</a>,note",
+		"If you do not know what a Cronjob is... leave it turned off. If you want to know more... check out: <a href='http://wiki.dragonprime.net/index.php?title=Cronjob'>http://wiki.dragonprime.net/in[...]
 		"resurrectionturns"=>"Modify (+ or -) the number of turns deducted after a resurrection as an absolute (number) or relative (number followed by %),text",
 
 		"Forest,title",
@@ -417,7 +421,7 @@ if ($op == "") {
 		"charset"=>"Which charset should be used for htmlentities?",
 
 		"Error Notification,title",
-		"Note: you MUST have data caching turned on if you want to use this feature.  Also the first error within any 24 hour period will not generate a notice; I'm sorry: that's really just how it is for technical reasons.,note",
+		"Note: you MUST have data caching turned on if you want to use this feature.  Also the first error within any 24 hour period will not generate a notice; I'm sorry: that's really just how it is [...]
 		"show_notices"=>"Show PHP Notice output?,bool",
 		"notify_on_warn"=>"Send notification on site warnings?,bool",
 		"notify_on_error"=>"Send notification on site errors?,bool",
